@@ -1,0 +1,95 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class='container flash'>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+
+  <ul>
+    {% for message in messages %}
+    <li> <strong> {{ message }} </strong> </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+
+</div>
+
+<br>
+
+
+<div class="container">
+  <div class="row">
+    <nav class="col-sm-3">
+      <ul id="list" style="max-width: 262.5px;" class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
+        {%if category_id == -1 %}
+        <li class="active">
+          <a href="{{url_for('showCategories')}}">
+            Latest Items
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{{url_for('showCategories')}}">
+            Latest Items
+          </a>
+        </li>
+        {% endif %}
+
+        {% for category in categories %}
+        {%if category_id == category.id %}
+        <li class="active">
+          <a href="{{url_for('showCategoriesItems', category_id = category.id)}}">
+            {{category.name}}
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{{url_for('showCategoriesItems', category_id = category.id)}}">
+            {{category.name}}
+          </a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="col-sm-7 thin_border_left">
+
+      {%if category_id == -1 %}
+      <h1 class="thin_border_bottom">Latest 10 Items</h1>
+      {% else %}
+      <h1 class="thin_border_bottom">{{category_name}}</h1>
+      {% endif %}
+
+      <!-- add loop to list the items -->
+
+      {%if category_id == -1 %}
+      {% for item in items %}
+      <a href="{{url_for('showItem', item_id = item.Item.id)}}">
+        {{item.Item.title}}
+      </a>
+      ({{item.Category.name}})
+      <br>
+      {% endfor %}
+      {% else %}
+      {% for item in items %}
+      <a href="{{url_for('showItem', item_id = item.id)}}">
+        {{item.title}}
+      </a>
+      <br>
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="col-sm-2">
+      <a class="btn btn-primary" href="{{url_for('newItem')}}">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Item
+      </a>
+    </div>
+  </div>
+</div>
+<a href="{{url_for('categoriesJSON')}}" class="footer">
+  <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export to JSON
+</a>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+.affix {
+    top: 20px;
+    z-index: 9999 !important;
+  }
+
+  .thin_border_left {
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .thin_border_bottom {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    margin-top: 0;
+  }
+
+  .login-block {
+    /*padding-right: 40px;*/
+    margin-top: 40px;
+    font-size: 20px;
+    text-align: right;
+  }
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    background-color: #2196F3;
+    color: white;
+    text-align: center;
+    margin-left: 100px;
+ }
